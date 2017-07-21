@@ -43,8 +43,8 @@ parser.add_option("-b", "--balance", help="Command to check the current balance"
 (args, _) = parser.parse_args()
 
 # App api and login informations
-username = 'khansunny245'									# Your username
-password = '01768072680'									# Your Password
+username = '########'									# Your username
+password = '########'									# Your Password
 
 # User Input Message
 def message():
