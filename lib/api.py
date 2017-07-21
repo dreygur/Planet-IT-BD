@@ -67,6 +67,7 @@ class PlanetAPI(object):
     def __init__(self):
         pass
 
+
     def balance(self, api_user, api_pass):
         # We can retrieve our remaining credit balance with this function
         # We will make a Dictionary with all the Data
@@ -78,9 +79,16 @@ class PlanetAPI(object):
         url = 'http://app.planetgroupbd.com/api/command/?'
         # encoding the Data as url
         enc_url = prs.urlencode(_argv)
+        # joining base url and encoded url
         request = url + enc_url
+        # opening the url
         result = req.urlopen(request)
-        response = result.read()
+        # converting the result to string
+        response = str(result.read())
+        # filtering unusable things
+        response = response[2:]
+        response = response[:-1]
+
         return response
 
     def s_sms(self, api_user, api_pass, api_text, api_gsm):
@@ -100,8 +108,10 @@ class PlanetAPI(object):
         request = url + enc_url
         # opening the url to run the commands
         result = req.urlopen(request)
-        # reading the response from the server
-        response = result.read()
+        response = str(result.read())
+        # filtering unusable things
+        response = response[2:]
+        response = response[:-1]
         return response
 
 
