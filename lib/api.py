@@ -143,7 +143,7 @@ class PlanetAPI(object):
 
 _api = PlanetAPI()
 balance = _api.balance
-short = _api.s_sms
+ssms = _api.s_sms
 lsms = _api.l_sms
 
 ######################################################
