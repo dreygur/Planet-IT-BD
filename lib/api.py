@@ -118,20 +118,7 @@ class PlanetAPI(object):
 ######################################################
 
 _api = PlanetAPI()
-#short_sms = _api.short_sms
 balance = _api.balance
-"""
-username = 'khansunny245'
-password = '01768072680'
-balance(username, password)
-"""
 short = _api.s_sms
-"""
-sender = 'Khan Sunny'
-text = 'Hi Totul...'
-gsm = '8801710909755'
-res = short(username, password, sender, text, gsm)
-print(res)
-"""
 
 ######################################################
