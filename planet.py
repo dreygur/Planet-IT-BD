@@ -28,25 +28,27 @@ sys.dont_write_bytecode = True
 
 from optparse import OptionParser
 from lib.api import PlanetAPI
+import lib.settings
 
 # Calling from modules...
 parser = OptionParser()
 api = PlanetAPI()
 
 # Parser options...
-parser.add_option("-t", "--text", help="To send a short SMS", default="Command to send a short SMS", action="store_true")
+parser.add_option("-t", "--text", help="To send a short SMS", action="store_true")
+parser.add_option("-l", "--long", help="To send a long SMS", action="store_true")
 parser.add_option("-b", "--balance", help="Command to check the current balance", action="store_true")
 
 # Gathering all parser-options in a variable
 (args, _) = parser.parse_args()
 
 # App api and login informations
-username = ''									# Your username
-password = ''									# Your Password
+username = 'khansunny245'									# Your username
+password = '01768072680'									# Your Password
 
 # User Input Message
 def message():
-	print('\nEnter your Message:')
+	print('\nEnter your Message (max 160 chars for short 1080 for long):')
 	text = str(input())
 	return text
 
@@ -103,6 +105,17 @@ def main():
 		verify = str(input())
 		if verify == 'y' or verify == 'Y':
 			response = api.s_sms(username, password, text, gsm)
+			ans = sms_check(response)
+			print('\n', ans)
+			sys.exit()
+
+	if args.long is True:
+		text = message()
+		gsm = number()
+		print('\nSMS Text: ', text, '\nReciever: ', gsm, '\n\nEnter y or Y to Confirm, n or N to discard: ')
+		verify = str(input())
+		if verify == 'y' or verify == 'Y':
+			response = api.l_sms(username, password, text, gsm)
 			ans = sms_check(response)
 			print('\n', ans)
 			sys.exit()
