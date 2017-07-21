@@ -41,8 +41,8 @@ parser.add_option("-b", "--balance", help="Command to check the current balance"
 (args, _) = parser.parse_args()
 
 # App api and login informations
-username = ''									# Your username
-password = ''									# Your Password
+username = 'khansunny245'									# Your username
+password = '01768072680'									# Your Password
 
 # User Input Message
 def message():
@@ -56,6 +56,35 @@ def number():
 	gsm = str(input())
 	return gsm
 
+def sms_check(res):
+
+    	if res == '0':
+    		response = 'Request was Succesfull'
+    	elif res == '-1':
+    		response = 'Error proccessing the request'
+    	elif res == '-2':
+    		response = 'You don\'t have enough credits...'
+    	elif res == '-3':
+    		response = 'Currenty we can\'t send SMS to this network.'
+    	elif res == '-5':
+    		response = 'Username or Password is invalid'
+    	elif res == '-6':
+    		response = 'Destination address is missing'
+    	elif res == '-10':
+    		response = 'Missing username'
+    	elif res == '-11':
+    		response = 'Missing the password'
+    	elif res == '-13':
+    		response = 'Number is not recognised. \nPlease make sure you have added 88 before the number'
+    	elif res == '-34':
+    		response = 'Sender ID is not Valid'
+    	elif res == '-99':
+    		response = 'Error proccessing request'
+    	else:
+    		response = 'SMS send success. ID: ' + res
+
+    	return response
+
 #The main function starts...
 def main():
 	# The main function
@@ -63,7 +92,8 @@ def main():
 	# Check Balance
 	if args.balance is True:
 		bal = api.balance(username, password)
-		print('\nCurrent Balance: ', bal[0:])
+		ans = sms_check(bal)
+		print('\nCurrent Balance: ', ans)
 	
 	# Send a short SMS
 	if args.text is True:
@@ -72,11 +102,9 @@ def main():
 		print('\nSMS Text: ', text, '\nReciever: ', gsm, '\n\nEnter y or Y to Confirm, n or N to discard: ')
 		verify = str(input())
 		if verify == 'y' or verify == 'Y':
-			url = api.s_sms(username, password, text, gsm)
-			if url is not None:
-				print('\nSMS Send Success...\nID: ',url)
-				sys.exit()
-		else:
+			response = api.s_sms(username, password, text, gsm)
+			ans = sms_check(response)
+			print('\n', ans)
 			sys.exit()
 
 # Starting the program from here...
