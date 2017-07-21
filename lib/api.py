@@ -114,6 +114,30 @@ class PlanetAPI(object):
         response = response[:-1]
         return response
 
+    def l_sms(self, api_user, api_pass, api_text, api_gsm):
+        # We can retrieve our remaining credit balance with this function
+        # We will make a Dictionary with all our Data
+        _argv = {'user' : str(api_user),
+                 'password' : str(api_pass),
+                 'sender' : 'Totul',
+                 'SMSText' : str(api_text),
+                 'GSM' : str(api_gsm),
+                 'type' : 'longSMS'}
+
+        # Base url to send a short SMS
+        url = 'http://app.planetgroupbd.com/api/v3/sendsms/plain/?'
+        # encoding the Data as url
+        enc_url = prs.urlencode(_argv)
+        # joining base url and encoded url
+        request = url + enc_url
+        # opening the url to run the commands
+        result = req.urlopen(request)
+        response = str(result.read())
+        # filtering unusable things
+        response = response[2:]
+        response = response[:-1]
+        return response
+
 
 ######################################################
 
