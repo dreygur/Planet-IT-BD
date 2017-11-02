@@ -43,8 +43,8 @@ parser.add_option("-b", "--balance", help="Command to check the current balance"
 (args, _) = parser.parse_args()
 
 # App api and login informations
-username = '########'									# Your username
-password = '########'									# Your Password
+username = '############'									# Your username
+password = '############'									# Your Password
 
 # User Input Message
 def message():
@@ -82,6 +82,8 @@ def sms_check(res):
     		response = 'Sender ID is not Valid'
     	elif res == '-99':
     		response = 'Error proccessing request'
+    	elif res >= '0':
+    		response = 'Current Balance: ' + res[:-5] + ' Credits...'
     	else:
     		response = 'SMS send success. ID: ' + res
 
@@ -95,7 +97,7 @@ def main():
 	if args.balance is True:
 		bal = api.balance(username, password)
 		ans = sms_check(bal)
-		print('\nCurrent Balance: ', ans)
+		print('\n%s\n' %ans)
 	
 	# Send a short SMS
 	if args.text is True:
@@ -106,7 +108,7 @@ def main():
 		if verify == 'y' or verify == 'Y':
 			response = api.s_sms(username, password, text, gsm)
 			ans = sms_check(response)
-			print('\n', ans)
+			print('\n%s\n' %ans)
 			sys.exit()
 
 	if args.long is True:
